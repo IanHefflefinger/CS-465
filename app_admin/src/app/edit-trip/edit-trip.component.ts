@@ -46,8 +46,15 @@ export class EditTripComponent implements OnInit {
 
     this.tripService.getTrip(tripCode).then((data) => {
       console.log(data);
+      let myIndex = 0;
+      for (const item in data) {
+        //console.log(data[item].code)
+        if (data[item].code == tripCode) {
+          myIndex = parseInt(item);
+        }
+      }
       // Don't use editForm.setValue() as it will throw console error
-      this.editForm.patchValue(data[0]);
+      this.editForm.patchValue(data[myIndex]); // FIXME: find a way to access the right data (0 is just ridiculous because it will always update the first)
     });
   }
   onSubmit() {
